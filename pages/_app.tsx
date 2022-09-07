@@ -18,6 +18,12 @@ function Auth({ children }: AuthProps): JSX.Element {
     if (!isLogin) signIn();
   }, [isLogin, loading]);
 
+  React.useEffect(() => {
+    if (session?.error === 'RefreshAccessTokenError') {
+      signIn();
+    }
+  }, [session]);
+
   if (isLogin) {
     return <>{children}</>;
   }
